@@ -4,8 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import sys
-sys.path.append('..')
+
 from locators import Locators
 from curl import *
 
@@ -14,9 +13,9 @@ class TestSectionConstructor:
         driver.find_element(*Locators.SAUCE_1).click() #находим элемент Конструктов на странице и кликаем на него
         driver.find_element(*Locators.SAUCE_2).click() #находим и нажимаем раздел Булки
           
-        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((*Locators.SAUCE_3)))
+        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".sauces-section")))
 
-        element = driver.find_element(*Locators.SAUCE_3)
+        element = driver.find_element(By.CSS_SELECTOR, ".sauces-section")
         assert element.is_displayed(), "Раздел Соусы не отображается на странице"
 
         location = element.location
@@ -31,9 +30,9 @@ class TestSectionConstructor:
         driver.find_element(*Locators.FILLING_1).click() #находим элемент Конструктов на странице и кликаем на него
         driver.find_element(*Locators.FILLING_2).click() 
     
-        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((*Locators.FILLING_3)))
+        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".fillings-section")))
 
-        element = driver.find_element(*Locators.FILLING_3)
+        element = driver.find_element(By.CSS_SELECTOR, ".fillings-section")
         assert element.is_displayed(), "Раздел Начинки не отображается на странице"
 
         location = element.location
@@ -48,9 +47,9 @@ class TestSectionConstructor:
         driver.find_element(*Locators.BUNS_1).click() #находим элемент Конструктов на странице и кликаем на него
         driver.find_element(*Locators.BUNS_2).click() 
     
-        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((*Locators.BUNS_3)))
+        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".buns-section")))
 
-        element = driver.find_element(*Locators.BUNS_3)
+        element = driver.find_element(By.CSS_SELECTOR, ".buns-section")
         assert element.is_displayed(), "Раздел Булки не отображается на странице"
 
         location = element.location
