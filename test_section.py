@@ -8,44 +8,53 @@ from selenium.webdriver.common.by import By
 from locators import Locators
 from curl import *
 
-
-def test_section_of_sauce(driver): #проверяем, что работают переходы к разделу Соусы
-    driver.find_element(By.XPATH, "//p[@class='AppHeader_header__linkText__3q_va ml-2' and text()='Конструктор']").click() #находим элемент Конструктов на странице и кликаем на него
-    driver.find_element(By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Соусы']").click() #находим и нажимаем раздел Булки
+class TestSectionConstructor:
+    def test_section_of_sauce(self, driver): #проверяем, что работают переходы к разделу Соусы
+        driver.find_element(*Locators.SAUCE_1).click() #находим элемент Конструктов на странице и кликаем на него
+        driver.find_element(*Locators.SAUCE_2).click() #находим и нажимаем раздел Булки
           
-def is_element_scrolled_into_view(element): # проверяем позицию прокрутки до раздела Соусы
-    return driver.execute_script("""
-        var rect = arguments[0].getBoundingClientRect();
-        return rect.top >= 0 && rect.bottom <= window.innerHeight;
-    """, element)
+        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".sauces-section")))
 
-    element = driver.find_element(By.CSS_SELECTOR, "Соусы")
-    assert is_element_scrolled_into_view(element), "Элемент не прокрутился в видимую область"
+        element = driver.find_element(By.CSS_SELECTOR, ".sauces-section")
+        assert element.is_displayed(), "Раздел Соусы не отображается на странице"
+
+        location = element.location
+        rect = element.rect
+        window_size = driver.get_window_size()
+        
+        assert location['y'] >= 0, "Элемент находится выше видимой области"
+        assert location['y'] + rect['height'] <= window_size['height'], "Элемент находится ниже видимой области"
 
 
-def test_section_of_filling(driver): #проверяем, что работают переходы к разделу Начинки
-    driver.find_element(By.XPATH, "//p[@class='AppHeader_header__linkText__3q_va ml-2' and text()='Конструктор']").click() #находим элемент Конструктов на странице и кликаем на него
-    driver.find_element(By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Начинки']").click() 
+    def test_section_of_filling(self, driver): #проверяем, что работают переходы к разделу Начинки
+        driver.find_element(*Locators.FILLING_1).click() #находим элемент Конструктов на странице и кликаем на него
+        driver.find_element(*Locators.FILLING_2).click() 
     
-def is_element_scrolled_into_view(element): #проверяем позицию прокрутки до раздела Начинки
-    return driver.execute_script("""
-        var rect = arguments[0].getBoundingClientRect();
-        return rect.top >= 0 && rect.bottom <= window.innerHeight;
-    """, element)
+        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".fillings-section")))
 
-    element = driver.find_element(By.CSS_SELECTOR, "Начинки")
-    assert is_element_scrolled_into_view(element), "Элемент не прокрутился в видимую область"
+        element = driver.find_element(By.CSS_SELECTOR, ".fillings-section")
+        assert element.is_displayed(), "Раздел Начинки не отображается на странице"
+
+        location = element.location
+        rect = element.rect
+        window_size = driver.get_window_size()
+        
+        assert location['y'] >= 0, "Элемент находится выше видимой области"
+        assert location['y'] + rect['height'] <= window_size['height'], "Элемент находится ниже видимой области"
 
 
-def test_section_of_buns(driver): #проверяем, что работают переходы к разделу Булки
-    driver.find_element(By.XPATH, "//p[@class='AppHeader_header__linkText__3q_va ml-2' and text()='Конструктор']").click() #находим элемент Конструктов на странице и кликаем на него
-    driver.find_element(By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Булки']").click() 
+    def test_section_of_buns(self, driver): #проверяем, что работают переходы к разделу Булки
+        driver.find_element(*Locators.BUNS_1).click() #находим элемент Конструктов на странице и кликаем на него
+        driver.find_element(*Locators.BUNS_2).click() 
     
-def is_element_scrolled_into_view(element): # проверяем позицию прокрутки до раздела Булки
-    return driver.execute_script("""
-        var rect = arguments[0].getBoundingClientRect();
-        return rect.top >= 0 && rect.bottom <= window.innerHeight;
-    """, element)
+        WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".buns-section")))
 
-    element = driver.find_element(By.CSS_SELECTOR, "Булки")
-    assert is_element_scrolled_into_view(element), "Элемент не прокрутился в видимую область"
+        element = driver.find_element(By.CSS_SELECTOR, ".buns-section")
+        assert element.is_displayed(), "Раздел Булки не отображается на странице"
+
+        location = element.location
+        rect = element.rect
+        window_size = driver.get_window_size()
+        
+        assert location['y'] >= 0, "Элемент находится выше видимой области"
+        assert location['y'] + rect['height'] <= window_size['height'], "Элемент находится ниже видимой области"

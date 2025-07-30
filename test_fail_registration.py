@@ -5,15 +5,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from locators import Locators
 from curl import *
+from data import invalid_password_data
 
-invalid_password_data = [
-    ("Иван", "Ivanov_Ivan@ya.ru", "123"),
-    ("Иван", "Ivanov_Ivan@ya.ru", "12345"),
-    ]
 
-@pytest.mark.parametrize("name, email, password", invalid_password_data) 
-def test_successful_registration(driver, name, email, password): #проверка на ошибку для некорректного пароля
-    try:
+class TestFailedRegistration:
+    @pytest.mark.parametrize("name, email, password", invalid_password_data) 
+    def test_failed_registration(self, driver, name, email, password): #проверка на ошибку для некорректного пароля
         driver.find_element(*Locators.LOGIN_BUTTON).click()  #находим кнопку "Войти в аккаунт" и кликаем на нее
         driver.find_element(*Locators.REGISTER_BUTTON).click()  #находим элемент Зарегистрироваться и кликаем на него
         
@@ -23,12 +20,9 @@ def test_successful_registration(driver, name, email, password): #проверк
 
         driver.find_element(*Locators.REG_BUTTON).click()  #находим кнопку Зарегистрироваться и кликаем на нее
 
-
-        error_message = WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "p.input__error.text_type_main-default")))
+        WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located(Locators.ERROR_M)) 
     
-        assert error_message.is_displayed(), "Сообщение об ошибке не появилось"
-        
-        driver.find_element(By.LINK_TEXT, "Войти")
-
-    except Exception as e:
-        pytest.fail(f"Ошибка при проверке регистрации: {str(e)}")
+        assert driver.find_element(*Locators.PASSWORD).is_enabled(), f"Ошибка при проверке регистрации: поле пароля стало неактивным"
+    
+ 
+        assert not driver.current_url.endswith('/profile'), f"Ошибка при проверке регистрации: произошла неожиданная переадресация"
