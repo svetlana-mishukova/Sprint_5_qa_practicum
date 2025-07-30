@@ -29,10 +29,13 @@ class Locators:
     # Локаторы для Разделов
     SAUCE_1 = (By.XPATH, "//span[contains(@class, 'text_type_main-default') and text()='Соусы']")
     SAUCE_2 = (By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Соусы']")
+    SAUCE_3 = (By.CSS_SELECTOR, ".sauces-section")
     FILLING_1 = (By.XPATH, "//span[contains(@class, 'text_type_main-default') and text()='Начинки']")
     FILLING_2 = (By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Начинки']")
+    FILLING_3 = (By.CSS_SELECTOR, ".fillings-section")
     BUNS_1 = (By.XPATH, "//span[contains(@class, 'text_type_main-default') and text()='Булки']")
     BUNS_2 = (By.XPATH, "//h2[@class='text text_type_main-medium mb-6 mt-10' and text()='Булки']")
+    BUNS_3 = (By.CSS_SELECTOR, ".buns-section")
 
     # Локаторы для Конструктор
     CONSTR_1 = (By.XPATH, "//p[@class='AppHeader_header__linkText__3q_va ml-2' and text()='Личный Кабинет']")
