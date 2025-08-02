@@ -20,6 +20,8 @@ class TestLogout:
         driver.find_element(*Locators.EMAIL).send_keys(email) #вводим данные для поля email
         driver.find_element(*Locators.PASSWORD).send_keys(password)  #вводим данные для поля Пароль
         driver.find_element(*Locators.REG_BUTTON).click() #находим кнопку Зарегистрироваться и кликаем на нее
+        login_text = driver.find_element(*Locators.LOGIN).text
+        assert login_text == "Войти"
 
     @pytest.mark.order(2)
     def test_from_your_personal_account_to_the_designer(self, driver, registration_data): #авторизация и переход из личного кабинета в конструктор

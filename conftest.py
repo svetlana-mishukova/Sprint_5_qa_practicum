@@ -8,6 +8,8 @@ from selenium.webdriver.common.by import By
 from locators import Locators
 from curl import MAIN_PAGE
 
+from helper import generate_registration_data
+
 
 @pytest.fixture(scope='function')
 def driver():
@@ -17,11 +19,10 @@ def driver():
     driver.quit()
 
 @pytest.fixture(scope="class")
-def registration_data():
-    from helper import generate_registration_data
+def registration_data():    
     return generate_registration_data()
 
 @pytest.fixture(autouse=True)
 def setup(driver):
-        driver.get(MAIN_PAGE)
-        driver.delete_all_cookies()
+    driver.get(MAIN_PAGE)
+    driver.delete_all_cookies()
